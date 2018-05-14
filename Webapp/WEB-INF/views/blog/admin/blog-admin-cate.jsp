@@ -88,6 +88,7 @@ $("#btnAddCate").on("click",function(){
 	         }
 	      })
 	   });
+	   
 $("tbody").on("click","img",function(){       //내가 너를 클릭하지만 실제 행동은 상속받는 li가 한다.
 	var cateNo=$(this).attr("class");
 	console.log(cateNo);

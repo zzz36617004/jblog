@@ -28,9 +28,13 @@
 						
 					<p>
       				</c:if>
+      				
+      				
 					</div>
+					
+					
 						<c:if test="${not empty authUser}">
-								<div id="comment">
+						<div id="comment">
 						<table>
 							<tr>
 								<td></td><td><input type="text" name="name" value="${authUser.userName}"/></td>
@@ -40,9 +44,11 @@
 						</table>
 						</div>
 				</c:if>
+				
 				<ul id="guestbook-list">
 					
 					</ul>
+					
 				<ul class="blog-list">
 				<c:forEach items="${map.postlist}" var="vo">
 					<li>
@@ -81,13 +87,14 @@ $(document).ready(function(){  //객체화 하는 작업이 끝나면 함수 진
 });
 
 function fetchList(){
-	var userNo="${cN}"
-	var postNo="${pN}"
+	var castNo="${map.castNo}"
+	var postNo="${map.postNo}"
+	var userNo="${map.uservo.userNo}"
 	//리스트 요청 ajax
 		$.ajax({
 			url : "${pageContext.request.contextPath }/${blogvo.id}/commentslist",
 			type : "get",
-			data :{postNo:postNo,userNo:userNo},						//앞에 키값 뒤가 밸류
+			data :{postNo:postNo,castNo:castNo,userNo:userNo},						//앞에 키값 뒤가 밸류
 			dataType : "json",
 			success : function(list){
 				console.log(list);
@@ -104,7 +111,7 @@ function fetchList(){
 		
 $("#btnadd").on("click",function(){
 	var userNo="${map.uservo.userNo}"
-	var postNo="${pN}"
+	var postNo="${map.postNo}"
 	var id="${blogvo.id}";
 	var name=$("[name=name]").val();
 	var content=$("[name=content]").val();
@@ -125,6 +132,27 @@ $("#btnadd").on("click",function(){
 	         }
 	      })
 	   });
+	   
+$("ul").on("click","input",function(){       //내가 너를 클릭하지만 실제 행동은 상속받는 li가 한다.
+	console.log("삭제삭제");
+	var cmtNo=$(this).attr("class");
+	
+	$.ajax({
+		url : "${pageContext.request.contextPath }/${blogvo.id}/admin/delcomment",
+		type : "get",
+		data :{cmtNo:cmtNo},						
+		dataType : "json",
+		success :  function(result){ //이름은 상관없이 결과값 받아주는 거, 여기 result는 controller에서 받아준 no값
+			console.log(result);
+			$("#"+result).remove();
+			 //tbody.removeChild(result);
+        },	
+		error : function(XHR, status, error) {
+		console.error(status + " : " + error);
+		}
+	})
+});
+
 function render(commentsVo, updown){
 	var str="";
 	str+="<li id='"+commentsVo.cmtNo+"'>";
@@ -133,15 +161,17 @@ function render(commentsVo, updown){
 	str+="			<td>["+commentsVo.userName+"]</td>";
 	str+="			<td>"+commentsVo.cmtContent+"</td>";
 	str+="			<td>"+commentsVo.regDate+"</td>";
+	if(commentsVo.userNo=="${authUser.userNo}"){
 	str+="			<td><input id='btnModal' type='button' class='"+commentsVo.cmtNo+"' value='삭제'/></td>";
+	}
 	str+="		</tr>";
 	str+="	<table>";
 	str+="</li>";
 	if(updown == "up"){
-		$("#comment").prepend(str);
+		$("#guestbook-list").prepend(str);
 	}
 	else if(updown == "down"){
-		$("#comment").append(str);
+		$("#guestbook-list").append(str);
 	}
 	else{
 		console.log("오류");

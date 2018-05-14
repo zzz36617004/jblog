@@ -42,6 +42,7 @@ public class BlogService {
 		 if(cateNo==0) {
 			 cateNo=catelist.get(0).getCateNo();
 		 }
+		 
 		 List<PostVo> postlist=postDao.getpost(cateNo);
 		 PostVo result=null;
 		 if(postNo==0&&postlist.size()==0) {
@@ -54,6 +55,8 @@ public class BlogService {
 				 result=vo; 
 			 }
 		 }
+		 map.put("postNo",postNo);
+		 map.put("cateNo",cateNo);
 		 map.put("uservo",uservo);
 		 map.put("blogvo", blogvo);
 		 map.put("catelist", catelist);

@@ -15,8 +15,11 @@ public class CommentsDao {
 	private SqlSession sqlSession;
 	
 	public List<CommentsVo> getlist(CommentsVo commentvo) {
+		System.out.println(commentvo.toString());
+		List<CommentsVo> vo= sqlSession.selectList("comment.getlist", commentvo);
+		System.out.println(vo);
+		return vo;
 		
-		return sqlSession.selectList("comment.getlist", commentvo);
 	}
 	public int addcomment(CommentsVo commentvo) {
 		 sqlSession.insert("comment.insert",commentvo);

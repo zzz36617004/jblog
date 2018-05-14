@@ -28,6 +28,8 @@ public class UserController {
 	}
 	@RequestMapping(value="/joins", method=RequestMethod.POST)
 	public String join(@ModelAttribute UserVo userVo) {
+		System.out.println(userVo.toString());
+		
 		userService.join(userVo);
 		
 		return "user/joinSuccess";

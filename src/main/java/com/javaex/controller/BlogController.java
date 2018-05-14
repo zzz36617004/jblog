@@ -36,8 +36,8 @@ public class BlogController {
 							Model model) {
 		BlogVo blogvo=blogService.getbloginfo(id);
 		Map<String,Object> map=blogService.getmainbloginfo(id,cateNo,postNo);
-		model.addAttribute("cN",cateNo);
-		model.addAttribute("pN",postNo);
+		model.addAttribute("castNo",cateNo);
+		model.addAttribute("postNo",postNo);
 		//session.setAttribute("map",map);
 		model.addAttribute("blogvo",blogvo);
 		model.addAttribute("map",map);

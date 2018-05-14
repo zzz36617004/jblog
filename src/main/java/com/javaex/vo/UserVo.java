@@ -8,6 +8,17 @@ public class UserVo {
 	private String userName;
 	private String password;
 	private Date joinDate;
+	private String agreeProv;
+	
+	public UserVo(int userNo, String id, String userName, String password, Date joinDate, String agreeProv) {
+		super();
+		this.userNo = userNo;
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.joinDate = joinDate;
+		this.agreeProv = agreeProv;
+	}
 	public UserVo(int userNo, String id, String userName, String password, Date joinDate) {
 		super();
 		this.userNo = userNo;
@@ -22,6 +33,12 @@ public class UserVo {
 		this.userName = userName;
 		this.password = password;
 		this.joinDate = joinDate;
+	}
+	public String getAgreeProv() {
+		return agreeProv;
+	}
+	public void setAgreeProv(String agreeProv) {
+		this.agreeProv = agreeProv;
 	}
 	public UserVo() {
 		super();
@@ -56,5 +73,10 @@ public class UserVo {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "UserVo [userNo=" + userNo + ", id=" + id + ", userName=" + userName + ", password=" + password
+				+ ", joinDate=" + joinDate + ", agreeProv=" + agreeProv + "]";
+	}
 }

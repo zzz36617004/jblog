@@ -4,7 +4,12 @@
 <mapper namespace="comment">
 <select id="getlist" parameterType="com.javaex.vo.CommentsVo"  resultType="com.javaex.vo.CommentsVo">
 	<![CDATA[
-		select (select userName from users where userNo=#{userNo}) userName,cmtNo,postNo,userNo,cmtContent,regDate
+		select (select userName from users where userNo=#{userNo}) userName,
+				cmtNo,
+				postNo,
+				userNo,
+				cmtContent,
+				regDate
 		from comments
 		where postNo=#{postNo}
 	]]>
@@ -31,7 +36,7 @@
 </select>
 <delete id="delete" parameterType="int">
 <![CDATA[
-	delete from category where cateNo=#{cateNo} 
+	delete from comments where cmtNo=#{cmtNo} 
 	]]>
 
 </delete>

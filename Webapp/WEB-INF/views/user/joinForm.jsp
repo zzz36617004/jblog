@@ -22,6 +22,7 @@
 			<input type="text" name="id" id="id" value="" />
 			
 			<input id="btn-checkid" type="button" value="id 중복체크">
+			<input name="check" type="hidden" value="false">
 			<p id="checkid-msg" class="form-error">
 			&nbsp;
 			</p>
@@ -35,7 +36,7 @@
 				<label class="l-float">서비스 약관에 동의합니다.</label>
 			</fieldset>
 
-			<input type="submit" value="가입하기">
+			<input id="submit" type="submit" value="가입하기">
 
 		</form>
 	</div>
@@ -43,6 +44,35 @@
 </body>
 
 <script type="text/javascript">
+
+$("#submit").on("click",function(){
+	var flag=false;
+ 	 if($("[name=userName]").val()==""){
+ 		alert("이름입력하세요");
+	}
+	else if($("[name=id]").val()==""){
+		alert("아이디입력하세요");
+	}
+	else if($("[name=check]").val()=="false"){
+		alert("아이디 중복 체크 하세요.");
+	}
+	else if($("[name=password]").val()==""){
+		alert("패스워드입력하세요");
+	}
+	else if(!$("#agree-prov").is(":checked")){
+		alert("약관동의 하세요 ");
+		
+	}
+	else{
+		flag=true;
+	}
+ 	 
+ 	 return flag;
+ 	 
+});
+
+
+
 
 	$("#btn-checkid").on("click",function(){
 		var id=$("#id").val();
@@ -59,7 +89,9 @@
 					$("#checkid-msg").html("사용중인 아이디 입니다.");
 				}else{
 					$("#checkid-msg").html("사용 가능합니다.");
+					$("[name=check]").val("true");
 				}
+				
 			/*성공시 처리해야될 코드 작성*/
 			},
 			error : function(XHR, status, error) {

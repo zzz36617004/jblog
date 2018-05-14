@@ -23,7 +23,6 @@ public class CommentsService {
 			 return commentsDao.selectcomment(cmtNo);
 		}
 		public int delete(int cmtNo) {
-			
 			commentsDao.delete(cmtNo);
 			return cmtNo;
 			}
