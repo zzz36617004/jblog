@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog">
+<select id="bloginfo" parameterType="String" resultType="com.javaex.vo.BlogVo">
+	<![CDATA[
+		select blog.id,blogTitle,logoFile
+		from blog
+		where id=#{id}
+		
+	]]>
+</select>
+<update id="modify" parameterType="map" >
+<![CDATA[
+	 update blog set 
+	 blogtitle=#{blogTitle}
+	 		
+	 		]]>
+	 		<if test="logoFile!=null">
+	 		<![CDATA[
+	 		 ,logofile=#{logoFile}
+	 		]]>
+	 		</if>
+	 		<![CDATA[
+	 		where id=#{id}
+]]>
+</update>
+</mapper>
